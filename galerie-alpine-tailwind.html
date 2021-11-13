@@ -1,0 +1,74 @@
+<!-- Script that uses tailwind and alpinejs. Photo gallery. Clicking on an image brings the image to the foreground with a navigation bar : first image, previous image, next image, last image, close. Clicking outside the image returns to the gallery. -->
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width-device-width, initial-scale-1.0" />
+        <title>Alpine Tailwind Gallery</title>
+        <!-- cdn alpinejs and tailwind -->
+        <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+
+<body class="bg-gray-200">
+
+    <!-- Div container with center title -->
+    <div class="container mx-auto  bg-gray-500">
+        <div class="w-full h-64 mt-2 flex items-center justify-center text-white text-7xl">
+            <p>GALLERY</p>
+        </div>
+    </div>      <!-- end of title container -->
+    <!-- Create array of photos with id, source and legend of images -->
+    <script>
+        let photos = [
+            { id:0, src: 'https://images.unsplash.com/photo-1589656966895-2f33e7653819?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YW5pbWFsc3xlbnwwfDB8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', legend: 'a polar bear'  },
+            { id:1, src: 'https://images.unsplash.com/photo-1474314170901-f351b68f544f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDl8fGFuaW1hbHN8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', legend: 'green snake' },
+            { id:2, src: 'https://images.unsplash.com/photo-1527161153332-99adcc6f2966?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGFuaW1hbHN8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', legend: 'a baby elephant and its mother' },
+            { id:3, src: 'https://images.unsplash.com/photo-1477764250597-dffe9f601ae8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGFuaW1hbHN8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', legend: 'orange tiger' },
+            { id:4, src: 'https://images.unsplash.com/photo-1463852247062-1bbca38f7805?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fGFuaW1hbHN8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', legend: 'black gorilla' },
+            { id:5, src: 'https://images.unsplash.com/photo-1470093851219-69951fcbb533?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGFuaW1hbHN8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', legend: 'white fox on snow' },
+            { id:6, src: 'https://images.unsplash.com/photo-1430026996702-608b84ce9281?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fGFuaW1hbHN8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', legend: 'rhinoceros eating grass' },
+            { id:7, src: 'https://images.unsplash.com/photo-1551098891-7a1c852f6c6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fGFuaW1hbHN8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60', legend: 'three horses' },
+            { id:8, src: 'https://images.unsplash.com/photo-1566296524462-e0a341bf65e6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDZ8fGFuaW1hbHN8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', legend: 'five black and white zebras' },
+            ] ;
+        ;
+    </script>
+
+    <!-- Div container -->
+    <div class="container mx-auto"> 
+        <!-- Div relative -->           
+        <div class="relative w-2/3 mt-6 mx-auto items-center">
+            <!-- x-data needs to be in a div -->   
+            <div class="absolute  w-full  grid grid-cols-3 gap-3 " x-data="{ data: photos, total: 9, current: 0, open: false , reduct: true , 
+            }">         
+            <!-- loop x-for needs to be in a template tag -->
+                <template x-for="d in data" :key="d.id">                    
+                    <img id="d.id" class="h-auto cursor-pointer rounded" @click="current = d.id , open = true, reduct = false" x-show="reduct" x-bind:src="d.src">
+                </template>
+                <!-- Div container for navigation bar and images--> 
+                <div class="absolute  w-full content-center" x-show="open" @click.away="open = false, reduct = true">
+                    <!-- Div container for navigation bar -->   
+                    <div class="absolute  h-12 bg-gray-600  w-full top-0 text-white  flex justify-center items-center" >
+                        <span class="absolute cursor-pointer text-3xl " style=" left:20%;" @click="current = (current + total- 1) % total">&laquo;</span>
+                        <span class="absolute cursor-pointer text-3xl" style=" left:30%;" @click="current = (current + 1) % total">&raquo;</span>
+                        <span class="absolute cursor-pointer text-3xl" style=" left:10%;" @click="current = 0">&#x21E4;</span>
+                        <span class="absolute cursor-pointer text-3xl" style=" left:40%;" @click="current = total - 1">&#x21E5;</span>
+                        <span class="absolute cursor-pointer text-3xl" style=" right:5%;" @click="open = false, reduct = true">x</span>
+                    </div>      <!-- end of navigation bar -->
+                    <!-- Div container for images-->
+                    <div class=" text-center text-white text-lg">
+                        <!-- loop x-for needs to be in a template tag -->
+                        <template x-for="d in data" :key="d.id">
+                            <!-- figure with image and caption -->
+                            <figure x-show="current == d.id">
+                                <img class="w-full mx-auto" x-bind:src="d.src">
+                                <figcaption class="bg-gray-800  opacity-80 ">Photo-<span x-text="d.id + 1"></span><span> : </span><span x-text="d.legend"></span></figcaption>
+                            </figure>
+                        </template>  
+                    </div>     <!-- end of images -->  
+                </div>      <!-- end of navigation bar and images -->
+            </div>      <!-- end of x-data -->
+        </div>      <!-- end of div relative -->
+    </div>      <!-- end of container -->
+</body>
+</html>
