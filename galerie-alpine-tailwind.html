@@ -8,16 +8,18 @@
         <!-- cdn alpinejs and tailwind -->
         <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     </head>
 
-<body class="bg-gray-200">
+<body>
 
     <!-- Div container with center title -->
-    <div class="container mx-auto  bg-gray-500">
-        <div class="w-full h-64 mt-2 flex items-center justify-center text-white text-7xl">
+    <div  class="container mx-auto  bg-red-500">
+        <div id="madiv21" class="w-full h-64 mt-2 flex items-center justify-center text-white text-7xl">
             <p>GALLERY</p>
         </div>
     </div>      <!-- end of title container -->
+
     <!-- Create array of photos with id, source and legend of images -->
     <script>
         let photos = [
@@ -35,34 +37,35 @@
     </script>
 
     <!-- Div container -->
-    <div class="container mx-auto"> 
+    <div  class=" container mx-auto bg-gray-600"> 
         <!-- Div relative -->           
-        <div class="relative w-2/3 mt-6 mx-auto items-center">
-            <!-- x-data needs to be in a div -->   
-            <div class="absolute  w-full  grid grid-cols-3 gap-3 " x-data="{ data: photos, total: 9, current: 0, open: false , reduct: true , 
-            }">         
+        <div  class="relative w-4/5 mx-auto" style="padding-top:62%;">
+            <!-- x-data needs to be in a div / display on grid-->   
+            <div  class="absolute  w-full  grid grid-cols-3 gap-3" style=" top:5%; " x-data="{ data: photos, total: 9, current: 0, open: false , reduct: true , 
+            }" >         
             <!-- loop x-for needs to be in a template tag -->
                 <template x-for="d in data" :key="d.id">                    
                     <img id="d.id" class="h-auto cursor-pointer rounded" @click="current = d.id , open = true, reduct = false" x-show="reduct" x-bind:src="d.src">
                 </template>
                 <!-- Div container for navigation bar and images--> 
-                <div class="absolute  w-full content-center" x-show="open" @click.away="open = false, reduct = true">
+                <div class="absolute  w-full content-center " x-show="open" @click.away="open = false, reduct = true">
                     <!-- Div container for navigation bar -->   
-                    <div class="absolute  h-12 bg-gray-600  w-full top-0 text-white  flex justify-center items-center" >
-                        <span class="absolute cursor-pointer text-3xl " style=" left:20%;" @click="current = (current + total- 1) % total">&laquo;</span>
-                        <span class="absolute cursor-pointer text-3xl" style=" left:30%;" @click="current = (current + 1) % total">&raquo;</span>
-                        <span class="absolute cursor-pointer text-3xl" style=" left:10%;" @click="current = 0">&#x21E4;</span>
-                        <span class="absolute cursor-pointer text-3xl" style=" left:40%;" @click="current = total - 1">&#x21E5;</span>
-                        <span class="absolute cursor-pointer text-3xl" style=" right:5%;" @click="open = false, reduct = true">x</span>
+                    <div class="absolute  h-4 md:h-8 lg:h-12 bg-gray-500  w-full  text-white  flex justify-center items-center " >
+                        <span class="absolute cursor-pointer text-sm md:text-2xl lg:text-3xl" style=" left:20%;" @click="current = (current + total- 1) % total">&laquo;</span>
+                        <span class="absolute cursor-pointer text-sm md:text-2xl lg:text-3xl" style=" left:30%;" @click="current = (current + 1) % total">&raquo;</span>
+                        <span class="absolute cursor-pointer text-sm md:text-2xl lg:text-3xl" style=" left:10%;" @click="current = 0">&#x21E4;</span>
+                        <span class="absolute cursor-pointer text-sm md:text-2xl lg:text-3xl" style=" left:40%;" @click="current = total - 1">&#x21E5;</span>
+                        <span class="absolute cursor-pointer text-sm md:text-2xl lg:text-3xl" style=" right:5%;" @click="open = false, reduct = true">x</span>
                     </div>      <!-- end of navigation bar -->
                     <!-- Div container for images-->
-                    <div class=" text-center text-white text-lg">
+                    <div class=" text-center text-white " >
                         <!-- loop x-for needs to be in a template tag -->
-                        <template x-for="d in data" :key="d.id">
+                        
+                        <template  x-for="d in data" :key="d.id">
                             <!-- figure with image and caption -->
-                            <figure x-show="current == d.id">
-                                <img class="w-full mx-auto" x-bind:src="d.src">
-                                <figcaption class="bg-gray-800  opacity-80 ">Photo-<span x-text="d.id + 1"></span><span> : </span><span x-text="d.legend"></span></figcaption>
+                            <figure x-show="current == d.id" >
+                                <img class="w-full mx-auto" x-bind:src="d.src" >
+                                <figcaption class="h-4 md:h-6 lg:h-9 bg-gray-500   text-xs md:text-base lg:text-2xl">Photo-<span x-text="d.id + 1"></span><span> : </span><span x-text="d.legend"></span></figcaption>
                             </figure>
                         </template>  
                     </div>     <!-- end of images -->  
@@ -70,5 +73,8 @@
             </div>      <!-- end of x-data -->
         </div>      <!-- end of div relative -->
     </div>      <!-- end of container -->
+    
+    <!-- bottom -->
+    <div class="container h-8 bg-red-400 mx-auto mb-8"></div>
 </body>
 </html>
