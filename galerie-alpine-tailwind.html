@@ -59,8 +59,7 @@
                     </div>      <!-- end of navigation bar -->
                     <!-- Div container for images-->
                     <div class=" text-center text-white " >
-                        <!-- loop x-for needs to be in a template tag -->
-                        
+                        <!-- loop x-for needs to be in a template tag -->                        
                         <template  x-for="d in data" :key="d.id">
                             <!-- figure with image and caption -->
                             <figure x-show="current == d.id" >
@@ -68,7 +67,7 @@
                                 <figcaption class="h-4 md:h-6 lg:h-9 bg-gray-500   text-xs md:text-base lg:text-2xl">Photo-<span x-text="d.id + 1"></span><span> : </span><span x-text="d.legend"></span></figcaption>
                             </figure>
                         </template>  
-                    </div>     <!-- end of images -->  
+                    </div>     <!-- end of images container -->  
                 </div>      <!-- end of navigation bar and images -->
             </div>      <!-- end of x-data -->
         </div>      <!-- end of div relative -->
